@@ -21,8 +21,9 @@ public class Simulator
     // Program Stat Variables Go Here -- you'll need more than these two
     public long totalUops = 0;
     public long totalMops = 0;
-    public long currMopCount = 0;
+    public long currMopCount;
     public long oldMopCount = 0;
+    public long firstUop = 1;
     // THIS is why your homework is in Java and not C. You're welcome.
 
     // Question 1B
@@ -77,11 +78,14 @@ public class Simulator
             // the first micro-op in the macro-op indicates a new macro-op has begun
             // this is identified by microOpCount == 1
             if (currUop.microOpCount == 1) {
-		currMopCount = totalUops - oldMopCount - 1;
-		oldMopCount = currMopCount;
+		if (firstUop == 0){
+		    currMopCount = totalUops - oldMopCount - 1;
+		    oldMopCount = currMopCount;
 
-		//Question 1B
-		UopsPerMopHistogram.increment(currMopCount);
+		    //Question 1B
+		    UopsPerMopHistogram.increment((int)currMopCount);
+		}
+		firstUop = 0;
             	totalMops++;		                	
             }
             
