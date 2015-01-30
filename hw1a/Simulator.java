@@ -24,6 +24,7 @@ public class Simulator
     public boolean firstUop = true;
     public int CountUops;
     public boolean rstCountUops;
+    public long numBytes = 0;
     // THIS is why your homework is in Java and not C. You're welcome.
 
     // Question 1B
@@ -79,14 +80,16 @@ public class Simulator
             // the first micro-op in the macro-op indicates a new macro-op has begun
             // this is identified by microOpCount == 1
             if (currUop.microOpCount == 1) {
-		    //Question 1B
             	totalMops++;
 		rstCountUops = true;
+
+		numBytes += currUop.fallthroughPC - currUop.PC;
             }
 	    else{
 		rstCountUops = false;
 	    }
-
+	    
+	    //Question 1B
 	    if(rstCountUops){
 		if(!firstUop){
 		    UopsPerMopHistogram.increment(CountUops);
@@ -106,8 +109,6 @@ public class Simulator
             // They are not semantically correct -- you should not call each of these lines for 
             // every uop (as it currently does) and you should not only increment the "size 1" bucket each time.
             
-            // Question 1B
-            //UopsPerMopHistogram.increment(1);
            
             // Question 2B
             BytesPerMopHistogram.increment(1);
@@ -139,7 +140,7 @@ public class Simulator
 	
     	HW1aHelper.print1A(1000.0/928.0);
     	HW1aHelper.print1B(UopsPerMopHistogram);
-    	HW1aHelper.print2A(0.0);    	
+    	HW1aHelper.print2A(numBytes/totalMops);    	
     	HW1aHelper.print2B(BytesPerMopHistogram); 
     	HW1aHelper.print3A(BitsPerTargetHistogram);  
     	HW1aHelper.print4A(InsnTypeFrequencyHistogram); 
