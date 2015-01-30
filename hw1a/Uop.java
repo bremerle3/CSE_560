@@ -57,8 +57,17 @@ public class Uop {
         microOperation = tokens[13];
 
     	// TODO: fix this line for question 4A
-	//TODO: Remove, get autog working
-        type = UopType.insn_OTHER;
+	if(loadStore.charAt(0) == 'L'){
+	    type = UopType.insn_LOAD;}
+	else if (loadStore.charAt(0) == 'S'){
+	    type = UopType.insn_STORE;}
+	else if((TNnotBranch.charAt(0) == 'T') | (TNnotBranch.charAt(0) == 'N') && conditionRegister.charAt(0) == '-'){
+	    type = UopType.insn_UBRANCH;}
+	else if((TNnotBranch.charAt(0) == 'T') | (TNnotBranch.charAt(0) == 'N') && (conditionRegister.charAt(0) == 'R')){
+	    type = UopType.insn_CBRANCH;}
+	else{
+	    type = UopType.insn_OTHER;
+	}
 
     }
     
