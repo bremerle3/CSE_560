@@ -62,6 +62,7 @@ public class Simulator
         while (true) {
             line = traceReader.readLine();
             if (line == null) {
+		UopsPerMopHistogram.increment(CountUops);
                 break;
             }
             
