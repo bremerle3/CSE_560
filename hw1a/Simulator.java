@@ -26,6 +26,7 @@ public class Simulator
     public boolean rstCountUops;
     public double totalBytes = 0.0;
     public int numBytes = 0;
+    public int numBits;
     // THIS is why your homework is in Java and not C. You're welcome.
 
     // Question 1B
@@ -85,15 +86,9 @@ public class Simulator
 		rstCountUops = true;
 
 		totalBytes += (double)currUop.fallthroughPC - (double)currUop.PC;
-
+		
+		//Question 2B
 		numBytes = (int)currUop.fallthroughPC - (int)currUop.PC;
-		System.out.print("fallthoughPC = ");
-		System.out.print((int)currUop.fallthroughPC);
-		System.out.print(" PC = ");
-		System.out.print((int)currUop.PC);
-		System.out.print(" numBytes = ");
-		System.out.print(numBytes);
-		System.out.println(".");
 		BytesPerMopHistogram.increment(numBytes);
             }
 	    else{
@@ -112,7 +107,11 @@ public class Simulator
 		CountUops++;
 	    }
 
-            
+            if(currUop.targetPC != 0){
+		numBits = 2 + (int)Math.floor(HW1aHelper.log2(Math.abs(currUop.PC - currUop.targetPC)));
+		BitsPerTargetHistogram.increment(numBits);
+
+	    }
             // There are several histograms that you need to populate for this homework assignment.
             // TO DO: call increment at the right time with the right argument.
             // This is the only call you need to get the data you're looking for. 
@@ -125,7 +124,7 @@ public class Simulator
 	    //            BytesPerMopHistogram.increment(1);
             
             // Question 3A
-            BitsPerTargetHistogram.increment(1);
+            //BitsPerTargetHistogram.increment(1);
 
             // Question 4A This line IS correct and does not need to me moved or modified, 
             // BUT the currUop.type is NOT correctly set. Fix this in your Uop constructor inside Uop.java
