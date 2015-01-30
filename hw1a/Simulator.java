@@ -27,6 +27,9 @@ public class Simulator
     public double totalBytes = 0.0;
     public int numBytes = 0;
     public int numBits;
+    public String prevSetFlag;
+    public String currSetFlag;
+    public int pairCount;
     // THIS is why your homework is in Java and not C. You're welcome.
 
     // Question 1B
@@ -70,7 +73,14 @@ public class Simulator
             }
             
             Uop currUop = new Uop(line);
-            
+
+	    prevSetFlag = currSetFlag;
+	    currSetFlag = currUop.conditionRegister;
+	    
+	    if ((currUop.type.toString() == "insn_CBRANCH") && (prevSetFlag.charAt(0) == 'W')){
+		pairCount++;
+	    }
+	    
             // if you want to see what's going on (per loop iteration), call this fn with verbose_f = true 
             // you'll see each instruction printed to the screen. NOT recommended for long traces!
             if (verbose_f)
@@ -154,7 +164,7 @@ public class Simulator
     	HW1aHelper.print2B(BytesPerMopHistogram); 
     	HW1aHelper.print3A(BitsPerTargetHistogram);  
     	HW1aHelper.print4A(InsnTypeFrequencyHistogram); 
-    	HW1aHelper.print6A(0.0);
+    	HW1aHelper.print6A((double)pairCount/(double)totalUops);
 
     }
     
