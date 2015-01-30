@@ -57,6 +57,7 @@ public class Uop {
         microOperation = tokens[13];
 
     	// TODO: fix this line for question 4A
+	//TODO: Remove, get autog working
         type = UopType.insn_OTHER;
 
     }

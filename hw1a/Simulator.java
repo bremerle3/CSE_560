@@ -21,7 +21,8 @@ public class Simulator
     // Program Stat Variables Go Here -- you'll need more than these two
     public long totalUops = 0;
     public long totalMops = 0;
-    
+    public long currMopCount = 0;
+    public long oldMopCount = 0;
     // THIS is why your homework is in Java and not C. You're welcome.
 
     // Question 1B
@@ -76,6 +77,11 @@ public class Simulator
             // the first micro-op in the macro-op indicates a new macro-op has begun
             // this is identified by microOpCount == 1
             if (currUop.microOpCount == 1) {
+		currMopCount = totalUops - oldMopCount - 1;
+		oldMopCount = currMopCount;
+
+		//Question 1B
+		UopsPerMopHistogram.increment(currMopCount);
             	totalMops++;		                	
             }
             
@@ -87,7 +93,7 @@ public class Simulator
             // every uop (as it currently does) and you should not only increment the "size 1" bucket each time.
             
             // Question 1B
-            UopsPerMopHistogram.increment(1);
+            //UopsPerMopHistogram.increment(1);
            
             // Question 2B
             BytesPerMopHistogram.increment(1);
