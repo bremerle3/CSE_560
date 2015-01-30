@@ -24,7 +24,7 @@ public class Simulator
     public boolean firstUop = true;
     public int CountUops;
     public boolean rstCountUops;
-    public long numBytes = 0;
+    public double numBytes = 0.0;
     // THIS is why your homework is in Java and not C. You're welcome.
 
     // Question 1B
@@ -83,7 +83,7 @@ public class Simulator
             	totalMops++;
 		rstCountUops = true;
 
-		numBytes += currUop.fallthroughPC - currUop.PC;
+		numBytes += (double)currUop.fallthroughPC - (double)currUop.PC;
             }
 	    else{
 		rstCountUops = false;
@@ -140,7 +140,7 @@ public class Simulator
 	
     	HW1aHelper.print1A(1000.0/928.0);
     	HW1aHelper.print1B(UopsPerMopHistogram);
-    	HW1aHelper.print2A(numBytes/totalMops);    	
+    	HW1aHelper.print2A(numBytes/(double)totalMops);    	
     	HW1aHelper.print2B(BytesPerMopHistogram); 
     	HW1aHelper.print3A(BitsPerTargetHistogram);  
     	HW1aHelper.print4A(InsnTypeFrequencyHistogram); 
