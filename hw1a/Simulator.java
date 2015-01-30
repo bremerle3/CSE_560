@@ -25,6 +25,7 @@ public class Simulator
     public int CountUops;
     public boolean rstCountUops;
     public double totalBytes = 0.0;
+    public int numBytes = 0;
     // THIS is why your homework is in Java and not C. You're welcome.
 
     // Question 1B
@@ -84,7 +85,16 @@ public class Simulator
 		rstCountUops = true;
 
 		totalBytes += (double)currUop.fallthroughPC - (double)currUop.PC;
-		BytesPerMopHistogram.increment(currUop.fallthroughPC - currUop.PC);
+
+		numBytes = (int)currUop.fallthroughPC - (int)currUop.PC;
+		System.out.print("fallthoughPC = ");
+		System.out.print((int)currUop.fallthroughPC);
+		System.out.print(" PC = ");
+		System.out.print((int)currUop.PC);
+		System.out.print(" numBytes = ");
+		System.out.print(numBytes);
+		System.out.println(".");
+		BytesPerMopHistogram.increment(numBytes);
             }
 	    else{
 		rstCountUops = false;
@@ -112,7 +122,7 @@ public class Simulator
             
            
             // Question 2B
-            BytesPerMopHistogram.increment(1);
+	    //            BytesPerMopHistogram.increment(1);
             
             // Question 3A
             BitsPerTargetHistogram.increment(1);
