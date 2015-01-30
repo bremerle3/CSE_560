@@ -117,7 +117,7 @@ public class Simulator
     
     public void printHW1aQuestions() {
 	
-    	HW1aHelper.print1A(0.0);
+    	HW1aHelper.print1A(1000.0/928.0);
     	HW1aHelper.print1B(UopsPerMopHistogram);
     	HW1aHelper.print2A(0.0);    	
     	HW1aHelper.print2B(BytesPerMopHistogram); 
